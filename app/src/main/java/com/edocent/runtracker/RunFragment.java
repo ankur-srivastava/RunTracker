@@ -13,11 +13,7 @@ import android.view.ViewGroup;
  */
 public class RunFragment extends Fragment {
 
-
-    public RunFragment() {
-        // Required empty public constructor
-    }
-
+    public RunFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -25,6 +21,4 @@ public class RunFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_run, container, false);
         return view;
     }
-
-
 }
