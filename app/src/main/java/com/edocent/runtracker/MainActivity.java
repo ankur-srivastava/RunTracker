@@ -1,5 +1,6 @@
 package com.edocent.runtracker;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,6 +27,16 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        loadRunFragment();
+    }
+
+    private void loadRunFragment() {
+        RunFragment runFragment = new RunFragment();
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.mainFrameId, runFragment);
+        ft.commit();
     }
 
     @Override
