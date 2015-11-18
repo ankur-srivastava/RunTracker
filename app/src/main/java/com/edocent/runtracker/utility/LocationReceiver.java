@@ -27,7 +27,7 @@ public class LocationReceiver extends BroadcastReceiver{
         }
     }
 
-    private void onLocationReceived(Context context, Location location) {
+    protected void onLocationReceived(Context context, Location location) {
         Log.v(TAG, "Got the following latitude "+location.getLatitude()+" and longitude "+location.getLongitude());
     }
     protected void onProviderEnabledChanged(boolean enabled) {

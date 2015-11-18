@@ -10,7 +10,7 @@ import android.location.LocationManager;
  */
 public class RunManager {
 
-    private static final String ACTION_LOCATION = "com.edocent.android.runtracker.ACTION_LOCATION";
+    public static final String ACTION_LOCATION = "com.edocent.android.runtracker.ACTION_LOCATION";
     Context mContext;
     LocationManager mLocationManager;
     static RunManager mRunManager;
@@ -35,8 +35,8 @@ public class RunManager {
 
     public void startLocationUpdates() {
         //Network provider is suggested
-        //String provider = LocationManager.GPS_PROVIDER;
-        String provider = LocationManager.NETWORK_PROVIDER;
+        String provider = LocationManager.GPS_PROVIDER;
+        //String provider = LocationManager.NETWORK_PROVIDER;
         // Start updates from the location manager
         PendingIntent pi = getLocationPendingIntent(true);
         mLocationManager.requestLocationUpdates(provider, 0, 0, pi);
