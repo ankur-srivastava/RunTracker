@@ -18,7 +18,6 @@ public class RunManager {
     static RunManager mRunManager;
 
     private RunManager(Context context){
-        Log.v(TAG, "In RunManager");
         mContext = context;
         mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
     }
@@ -42,12 +41,12 @@ public class RunManager {
         String provider = LocationManager.NETWORK_PROVIDER;
         // Start updates from the location manager
         PendingIntent pi = getLocationPendingIntent(true);
-        Log.v(TAG, "Going to request Location updates");
+        Log.v(TAG, "Request Location updates");
         mLocationManager.requestLocationUpdates(provider, 0, 0, pi);
     }
 
     public void stopLocationUpdates() {
-        Log.v(TAG, "Going to stop Location updates");
+        Log.v(TAG, "Stop Location updates");
         PendingIntent pi = getLocationPendingIntent(false);
         if (pi != null) {
             mLocationManager.removeUpdates(pi);
