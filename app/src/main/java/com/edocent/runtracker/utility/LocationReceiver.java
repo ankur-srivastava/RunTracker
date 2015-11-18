@@ -16,6 +16,7 @@ public class LocationReceiver extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.v(TAG, "Update received");
         Location location = (Location) intent.getParcelableExtra(LocationManager.KEY_LOCATION_CHANGED);
         if(location != null){
             onLocationReceived(context, location);

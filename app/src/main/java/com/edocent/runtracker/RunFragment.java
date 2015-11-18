@@ -25,6 +25,7 @@ import com.edocent.runtracker.utility.RunManager;
  */
 public class RunFragment extends Fragment {
 
+    private static final String TAG = "RunFragment";
     private RunManager runManager;
     private Button mStartButton, mStopButton;
     private TextView mStartedTextView, mLatitudeTextView,
@@ -36,6 +37,7 @@ public class RunFragment extends Fragment {
 
         @Override
         protected void onLocationReceived(Context context, Location loc) {
+            Log.v(TAG, "Got the following latitude "+loc.getLatitude()+" and longitude "+loc.getLongitude());
             mLastLocation = loc;
             if (isVisible())
                 updateUI();

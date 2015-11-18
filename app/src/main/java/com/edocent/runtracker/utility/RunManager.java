@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.util.Log;
 
 /**
  * Created by Ankur on 11/17/2015.
@@ -11,11 +12,13 @@ import android.location.LocationManager;
 public class RunManager {
 
     public static final String ACTION_LOCATION = "com.edocent.android.runtracker.ACTION_LOCATION";
+    private static final String TAG = "RunManager";
     Context mContext;
     LocationManager mLocationManager;
     static RunManager mRunManager;
 
     private RunManager(Context context){
+        Log.v(TAG, "In RunManager");
         mContext = context;
         mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
     }
@@ -35,14 +38,16 @@ public class RunManager {
 
     public void startLocationUpdates() {
         //Network provider is suggested
-        String provider = LocationManager.GPS_PROVIDER;
-        //String provider = LocationManager.NETWORK_PROVIDER;
+        //String provider = LocationManager.GPS_PROVIDER;
+        String provider = LocationManager.NETWORK_PROVIDER;
         // Start updates from the location manager
         PendingIntent pi = getLocationPendingIntent(true);
+        Log.v(TAG, "Going to request Location updates");
         mLocationManager.requestLocationUpdates(provider, 0, 0, pi);
     }
 
     public void stopLocationUpdates() {
+        Log.v(TAG, "Going to stop Location updates");
         PendingIntent pi = getLocationPendingIntent(false);
         if (pi != null) {
             mLocationManager.removeUpdates(pi);
