@@ -3,6 +3,7 @@ package com.edocent.runtracker.utility;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.location.LocationManager;
 import android.util.Log;
 
@@ -40,10 +41,24 @@ public class RunManager {
         //Network provider is suggested
         //String provider = LocationManager.GPS_PROVIDER;
         String provider = LocationManager.NETWORK_PROVIDER;
-        // Start updates from the location manager
+
+        Location startLocation = mLocationManager.getLastKnownLocation(provider);
+
+        if(startLocation != null){
+            Log.v(TAG, "Got the Start location");
+            startLocation.setTime(System.currentTimeMillis());
+            broadcastLocation(startLocation);
+        }
+
         PendingIntent pi = getLocationPendingIntent(true);
         Log.v(TAG, "Going to request Location updates");
         mLocationManager.requestLocationUpdates(provider, 0, 0, pi);
+    }
+
+    private void broadcastLocation(Location startLocation) {
+        Intent broadcast = new Intent(ACTION_LOCATION);
+        broadcast.putExtra(LocationManager.KEY_LOCATION_CHANGED, startLocation);
+        mContext.sendBroadcast(broadcast);
     }
 
     public void stopLocationUpdates() {
