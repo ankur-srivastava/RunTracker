@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.edocent.runtracker.database.RunDatabaseHelper;
 import com.edocent.runtracker.model.Run;
+import com.edocent.runtracker.model.RunLocation;
 
 /**
  * Created by Ankur on 11/17/2015.
@@ -107,5 +108,13 @@ public class RunManager {
         Run run = new Run();
         run.set_id(runDatabaseHelper.insertRun(run));
         return run;
+    }
+
+    public void insertLocation(RunLocation location){
+        if (currentRunId != -1) {
+            runDatabaseHelper.insertLocation(currentRunId, location);
+        } else {
+            Log.e(TAG, "Location received with no tracking run; ignoring.");
+        }
     }
 }

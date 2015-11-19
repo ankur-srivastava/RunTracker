@@ -4,9 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
-import com.edocent.runtracker.model.Location;
 import com.edocent.runtracker.model.Run;
+import com.edocent.runtracker.model.RunLocation;
 
 /**
  * Created by Ankur on 11/19/2015.
@@ -28,6 +29,7 @@ public class RunDatabaseHelper extends SQLiteOpenHelper{
     static final String COLUMN_LOCATION_TIMESTAMP = "timestamp";
     static final String COLUMN_LOCATION_PROVIDER = "provider";
     static final String COLUMN_LOCATION_RUN_ID = "run_id";
+    private static final String TAG = RunDatabaseHelper.class.getSimpleName();
 
     public RunDatabaseHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
@@ -55,7 +57,9 @@ public class RunDatabaseHelper extends SQLiteOpenHelper{
         return getWritableDatabase().insert(TABLE_RUN, null, cv);
     }
 
-    public long insertLocation(long runId, Location location){
+    public long insertLocation(long runId, RunLocation location){
+        long id = 0;
+
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_LOCATION_LATITUDE, location.getLatitude());
         cv.put(COLUMN_LOCATION_LONGITUDE, location.getLongitude());
@@ -63,7 +67,13 @@ public class RunDatabaseHelper extends SQLiteOpenHelper{
         cv.put(COLUMN_LOCATION_TIMESTAMP, location.getTime());
         cv.put(COLUMN_LOCATION_PROVIDER, location.getProvider());
         cv.put(COLUMN_LOCATION_RUN_ID, runId);
+        try {
+            id = getWritableDatabase().insert(TABLE_LOCATION, null, cv);
+        }catch(Exception e){
+            Log.e(TAG, e.getMessage());
+        }
+        Log.v(TAG, "Following RunLocation ID was inserted "+id);
 
-        return getWritableDatabase().insert(TABLE_LOCATION, null, cv);
+        return id;
     }
 }

@@ -3,14 +3,23 @@ package com.edocent.runtracker.model;
 /**
  * Created by Ankur on 11/19/2015.
  */
-public class Location {
+public class RunLocation {
 
     private int run_id;
     private double latitude;
     private double longitude;
     private double altitude;
-    private int time;
+    private long time;
     private String provider;
+
+    @Override
+    public String toString() {
+        return "RunLocation{" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", altitude=" + altitude +
+                '}';
+    }
 
     public int getRun_id() {
         return run_id;
@@ -44,19 +53,19 @@ public class Location {
         this.altitude = altitude;
     }
 
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
-    }
-
     public String getProvider() {
         return provider;
     }
 
     public void setProvider(String provider) {
         this.provider = provider;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 }
