@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class Run {
 
+    private int _id;
     private Date mStartDate;
 
     public Run() {
@@ -30,5 +31,13 @@ public class Run {
 
     public void setStartDate(Date startDate) {
         mStartDate = startDate;
+    }
+
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
     }
 }
