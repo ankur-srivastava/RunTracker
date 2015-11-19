@@ -75,8 +75,8 @@ public class RunFragment extends Fragment {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mRun = new Run();
-                runManager.startLocationUpdates();
+                //runManager.startLocationUpdates();
+                mRun = runManager.startNewRun();
                 updateUI();
             }
         });
@@ -85,7 +85,8 @@ public class RunFragment extends Fragment {
         mStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                runManager.stopLocationUpdates();
+                //runManager.stopLocationUpdates();
+                runManager.stopRun();
                 updateUI();
             }
         });
@@ -106,23 +107,17 @@ public class RunFragment extends Fragment {
     }
 
     private void updateUI() {
-        Log.v(TAG, "Update UI");
-        int durationSeconds = 0;
         boolean started = runManager.isTrackingRun();
 
-        if (mRun != null) {
+        if (mRun != null)
             mStartedTextView.setText(mRun.getStartDate().toString());
-        }else{
-            Log.v(TAG, "mRun is null");
-        }
 
+        int durationSeconds = 0;
         if (mRun != null && mLastLocation != null) {
             durationSeconds = mRun.getDurationSeconds(mLastLocation.getTime());
             mLatitudeTextView.setText(Double.toString(mLastLocation.getLatitude()));
             mLongitudeTextView.setText(Double.toString(mLastLocation.getLongitude()));
             mAltitudeTextView.setText(Double.toString(mLastLocation.getAltitude()));
-        }else{
-            Log.v(TAG, "mLastLocation is null");
         }
         mDurationTextView.setText(Run.formatDuration(durationSeconds));
 

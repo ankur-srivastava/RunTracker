@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class Run {
 
+    private long _id;
     private Date mStartDate;
 
     public Run() {
@@ -15,6 +16,13 @@ public class Run {
 
     public int getDurationSeconds(long endMillis) {
         return (int)((endMillis - mStartDate.getTime()) / 1000);
+    }
+
+    @Override
+    public String toString() {
+        return "Run "+get_id() +
+                ", on " + getStartDate() +
+                '}';
     }
 
     public static String formatDuration(int durationSeconds) {
@@ -28,7 +36,15 @@ public class Run {
         return mStartDate;
     }
 
-    public void setStartDate(Date startDate) {
-        mStartDate = startDate;
+    public void setmStartDate(Date mStartDate) {
+        this.mStartDate = mStartDate;
+    }
+
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
     }
 }
