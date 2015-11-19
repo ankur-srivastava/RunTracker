@@ -60,6 +60,17 @@ public class RunListFragment extends ListFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        mListener = null;
+        helper = null;
+        cursorAdapter = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mListener = null;
+        helper = null;
+        cursorAdapter = null;
     }
 
     @Override
