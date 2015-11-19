@@ -3,10 +3,15 @@ package com.edocent.runtracker;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.ListFragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
 
+import com.edocent.runtracker.adapter.RunAdapter;
+import com.edocent.runtracker.database.RunDatabaseHelper;
 import com.edocent.runtracker.dummy.DummyContent;
 
 /**
@@ -14,7 +19,10 @@ import com.edocent.runtracker.dummy.DummyContent;
  */
 public class RunListFragment extends ListFragment {
 
-    private OnFragmentInteractionListener mListener;
+    ListView runListView;
+    OnFragmentInteractionListener mListener;
+    RunDatabaseHelper helper;
+    CursorAdapter cursorAdapter;
 
     public RunListFragment() { }
 
@@ -22,8 +30,19 @@ public class RunListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS));
+        helper = new RunDatabaseHelper(getActivity());
+        cursorAdapter = new RunAdapter(getActivity(), RunDatabaseHelper.getRuns(helper), 0);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.run_list_fragment, container, false);
+
+        runListView = (ListView) getActivity().findViewById(R.id.runListViewId);
+        runListView.setAdapter(cursorAdapter);
+
+        return view;
     }
 
 
