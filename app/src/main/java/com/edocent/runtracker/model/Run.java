@@ -18,6 +18,13 @@ public class Run {
         return (int)((endMillis - mStartDate.getTime()) / 1000);
     }
 
+    @Override
+    public String toString() {
+        return "Run "+get_id() +
+                ", on " + getStartDate() +
+                '}';
+    }
+
     public static String formatDuration(int durationSeconds) {
         int seconds = durationSeconds % 60;
         int minutes = ((durationSeconds - seconds) / 60) % 60;
@@ -29,8 +36,8 @@ public class Run {
         return mStartDate;
     }
 
-    public void setStartDate(Date startDate) {
-        mStartDate = startDate;
+    public void setmStartDate(Date mStartDate) {
+        this.mStartDate = mStartDate;
     }
 
     public long get_id() {

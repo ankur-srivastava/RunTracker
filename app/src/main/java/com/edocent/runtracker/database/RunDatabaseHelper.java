@@ -2,7 +2,9 @@ package com.edocent.runtracker.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -16,6 +18,7 @@ public class RunDatabaseHelper extends SQLiteOpenHelper{
 
     static final String DB_NAME="runtracker";
     static final int VERSION = 1;
+    static Cursor tempCursor;
 
     //Run
     static final String TABLE_RUN = "run";
@@ -72,8 +75,27 @@ public class RunDatabaseHelper extends SQLiteOpenHelper{
         }catch(Exception e){
             Log.e(TAG, e.getMessage());
         }
-        Log.v(TAG, "Following RunLocation ID was inserted "+id);
+        Log.v(TAG, "Following RunLocation ID was inserted " + id);
 
         return id;
+    }
+
+    public static Cursor getRuns(SQLiteOpenHelper helper){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        try {
+            if (db != null) {
+                tempCursor = db.query(TABLE_RUN,
+                        new String[]{"_id",COLUMN_RUN_START_DATE},
+                        null, null,
+                        null,null,null);
+            }
+        }catch(SQLiteException ex){
+            Log.e(TAG, ex.getMessage());
+        }
+        return tempCursor;
+    }
+
+    public static Cursor getRunLocations(long runId){
+        return null;
     }
 }
