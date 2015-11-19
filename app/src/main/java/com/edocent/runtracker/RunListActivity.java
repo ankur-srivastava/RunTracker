@@ -1,5 +1,6 @@
 package com.edocent.runtracker;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,6 +25,16 @@ public class RunListActivity extends AppCompatActivity implements RunListFragmen
                         .setAction("Action", null).show();
             }
         });
+
+        loadRunListFragment();
+    }
+
+    private void loadRunListFragment() {
+        RunListFragment runListFragment = new RunListFragment();
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.runListFrameLayoutId, runListFragment);
+        ft.commit();
     }
 
     @Override

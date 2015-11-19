@@ -1,12 +1,11 @@
 package com.edocent.runtracker;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.app.ListFragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 
@@ -29,9 +28,6 @@ public class RunListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        helper = new RunDatabaseHelper(getActivity());
-        cursorAdapter = new RunAdapter(getActivity(), RunDatabaseHelper.getRuns(helper), 0);
     }
 
     @Override
@@ -39,8 +35,13 @@ public class RunListFragment extends ListFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.run_list_fragment, container, false);
 
-        runListView = (ListView) getActivity().findViewById(R.id.runListViewId);
-        runListView.setAdapter(cursorAdapter);
+        helper = new RunDatabaseHelper(getActivity());
+        cursorAdapter = new RunAdapter(getActivity(), RunDatabaseHelper.getRuns(helper), 0);
+
+        runListView = (ListView) view.findViewById(R.id.runListViewId);
+        if(cursorAdapter != null){
+            runListView.setAdapter(cursorAdapter);
+        }
 
         return view;
     }

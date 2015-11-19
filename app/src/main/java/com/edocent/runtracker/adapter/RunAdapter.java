@@ -34,8 +34,8 @@ public class RunAdapter extends CursorAdapter {
     public void bindView(View convertView, Context context, Cursor cursor) {
         TextView runIdView = (TextView) convertView.findViewById(R.id.displayRunId);
         TextView runDateView = (TextView) convertView.findViewById(R.id.displayRunDate);
-        Log.v(TAG, "Check the Run ID "+cursor.getString(1));
-        runIdView.setText(cursor.getString(1));
-        runDateView.setText(cursor.getString(2));
+        Log.v(TAG, "Check the Run ID "+cursor.getString(0));
+        runIdView.setText(cursor.getString(0));
+        runDateView.setText(cursor.getString(1));
     }
 }
