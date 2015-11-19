@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.edocent.runtracker.model.Location;
 import com.edocent.runtracker.model.Run;
 
 /**
@@ -14,8 +15,19 @@ public class RunDatabaseHelper extends SQLiteOpenHelper{
 
     static final String DB_NAME="runtracker";
     static final int VERSION = 1;
+
+    //Run
     static final String TABLE_RUN = "run";
     static final String COLUMN_RUN_START_DATE = "start_date";
+
+    //Location
+    static final String TABLE_LOCATION = "location";
+    static final String COLUMN_LOCATION_LATITUDE = "latitude";
+    static final String COLUMN_LOCATION_LONGITUDE = "longitude";
+    static final String COLUMN_LOCATION_ALTITUDE = "altitude";
+    static final String COLUMN_LOCATION_TIMESTAMP = "timestamp";
+    static final String COLUMN_LOCATION_PROVIDER = "provider";
+    static final String COLUMN_LOCATION_RUN_ID = "run_id";
 
     public RunDatabaseHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
@@ -41,5 +53,17 @@ public class RunDatabaseHelper extends SQLiteOpenHelper{
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_RUN_START_DATE, run.getStartDate().getTime());
         return getWritableDatabase().insert(TABLE_RUN, null, cv);
+    }
+
+    public long insertLocation(long runId, Location location){
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_LOCATION_LATITUDE, location.getLatitude());
+        cv.put(COLUMN_LOCATION_LONGITUDE, location.getLongitude());
+        cv.put(COLUMN_LOCATION_ALTITUDE, location.getAltitude());
+        cv.put(COLUMN_LOCATION_TIMESTAMP, location.getTime());
+        cv.put(COLUMN_LOCATION_PROVIDER, location.getProvider());
+        cv.put(COLUMN_LOCATION_RUN_ID, runId);
+
+        return getWritableDatabase().insert(TABLE_LOCATION, null, cv);
     }
 }
