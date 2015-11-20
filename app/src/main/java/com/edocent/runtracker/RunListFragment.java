@@ -114,6 +114,8 @@ public class RunListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+
+        Log.v(TAG, "Following position was clicked "+position+" with id "+id);
         if (null != mListener) {
             mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
         }
