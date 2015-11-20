@@ -91,6 +91,9 @@ public class RunDatabaseHelper extends SQLiteOpenHelper{
         }catch(SQLiteException ex){
             Log.e(TAG, ex.getMessage());
         }
+        if(tempCursor != null){
+            Log.v(TAG, "Check Cursor "+tempCursor.getCount());
+        }
         return tempCursor;
     }
 

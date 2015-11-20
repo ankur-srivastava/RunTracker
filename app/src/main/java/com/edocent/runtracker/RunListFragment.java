@@ -5,6 +5,7 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +25,8 @@ import com.edocent.runtracker.dummy.DummyContent;
 public class RunListFragment extends ListFragment {
 
     static final int REQUEST_NEW_RUN = 0;
+    static final String TAG = "RunListFragment";
+
     ListView runListView;
     OnFragmentInteractionListener mListener;
     RunDatabaseHelper helper;
@@ -43,11 +46,13 @@ public class RunListFragment extends ListFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.run_list_fragment, container, false);
 
+        Log.v(TAG, "Get Cursor Adapter");
         helper = new RunDatabaseHelper(getActivity());
         cursorAdapter = new RunAdapter(getActivity(), RunDatabaseHelper.getRuns(helper, tempCursor), 0);
 
         runListView = (ListView) view.findViewById(R.id.runListViewId);
         if(cursorAdapter != null){
+            Log.v(TAG, "Set Cursor Adapter");
             runListView.setAdapter(cursorAdapter);
         }
 
