@@ -29,8 +29,8 @@ public class RunListFragment extends ListFragment {
 
     ListView runListView;
     OnFragmentInteractionListener mListener;
-    RunDatabaseHelper helper;
-    CursorAdapter cursorAdapter;
+    private RunDatabaseHelper helper;
+    private CursorAdapter cursorAdapter;
     Cursor tempCursor;
 
     public RunListFragment() { }

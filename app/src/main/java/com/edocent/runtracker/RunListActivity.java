@@ -6,11 +6,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 public class RunListActivity extends AppCompatActivity implements RunListFragment.OnFragmentInteractionListener{
+
+    private static final String TAG = RunListActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +66,14 @@ public class RunListActivity extends AppCompatActivity implements RunListFragmen
 
     @Override
     public void onFragmentInteraction(int runId) {
-        //On click call detail
-        
+        Log.v(TAG, "Calling Detail Fragment");
+        RunDetailFragment runDetailFragment = new RunDetailFragment();
+        runDetailFragment.setRunId(runId);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.runListFrameLayoutId, runDetailFragment);
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
     }
 }

@@ -97,7 +97,22 @@ public class RunDatabaseHelper extends SQLiteOpenHelper{
         return tempCursor;
     }
 
-    public static Cursor getRunLocations(long runId){
-        return null;
+    public static Cursor getRunLocations(long runId, SQLiteOpenHelper helper, Cursor tempLocationCursor){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        try {
+            if (db != null) {
+                tempLocationCursor = db.query(TABLE_LOCATION,
+                        new String[]{"_id",COLUMN_LOCATION_LATITUDE, COLUMN_LOCATION_LONGITUDE,
+                                COLUMN_LOCATION_ALTITUDE, COLUMN_LOCATION_TIMESTAMP},
+                        null, null,
+                        null,null,null);
+            }
+        }catch(SQLiteException ex){
+            Log.e(TAG, ex.getMessage());
+        }
+        if(tempLocationCursor != null){
+            Log.v(TAG, "Check Location Cursor "+tempLocationCursor.getCount());
+        }
+        return tempLocationCursor;
     }
 }

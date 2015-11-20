@@ -21,6 +21,11 @@ public class RunLocation {
                 '}';
     }
 
+    public RunLocation(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public int getRun_id() {
         return run_id;
     }
