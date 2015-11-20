@@ -18,7 +18,6 @@ public class RunDatabaseHelper extends SQLiteOpenHelper{
 
     static final String DB_NAME="runtracker";
     static final int VERSION = 1;
-    static Cursor tempCursor;
 
     //Run
     static final String TABLE_RUN = "run";
@@ -80,7 +79,7 @@ public class RunDatabaseHelper extends SQLiteOpenHelper{
         return id;
     }
 
-    public static Cursor getRuns(SQLiteOpenHelper helper){
+    public static Cursor getRuns(SQLiteOpenHelper helper, Cursor tempCursor){
         SQLiteDatabase db = helper.getReadableDatabase();
         try {
             if (db != null) {
