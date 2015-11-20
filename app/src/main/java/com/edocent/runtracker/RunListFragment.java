@@ -115,13 +115,14 @@ public class RunListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        Log.v(TAG, "Following position was clicked "+position+" with id "+id);
+        int _id = (int) id;
+        Log.v(TAG, "Following run id was clicked "+_id);
         if (null != mListener) {
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            mListener.onFragmentInteraction(_id);
         }
     }
 
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(String id);
+        void onFragmentInteraction(int id);
     }
 }

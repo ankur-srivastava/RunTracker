@@ -62,7 +62,8 @@ public class RunListActivity extends AppCompatActivity implements RunListFragmen
     }
 
     @Override
-    public void onFragmentInteraction(String id) {
+    public void onFragmentInteraction(int runId) {
         //On click call detail
+        
     }
 }
