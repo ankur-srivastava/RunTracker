@@ -19,11 +19,9 @@ public class TrackingLocationReceiver extends LocationReceiver{
     protected void onLocationReceived(Context context, Location loc) {
         Log.v(TAG, "Insert Location Update");
 
-        RunLocation runLocation = new RunLocation();
+        RunLocation runLocation = new RunLocation(loc.getLatitude(), loc.getLongitude());
         runLocation.setTime(new Date().getTime());
         runLocation.setAltitude(loc.getAltitude());
-        runLocation.setLatitude(loc.getLatitude());
-        runLocation.setLongitude(loc.getLongitude());
 
         Log.v(TAG, "Ready to insert following RunLocation object "+runLocation);
 

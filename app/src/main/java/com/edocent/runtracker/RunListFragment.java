@@ -2,7 +2,10 @@ package com.edocent.runtracker;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,11 +21,12 @@ import android.widget.ListView;
 import com.edocent.runtracker.adapter.RunAdapter;
 import com.edocent.runtracker.database.RunDatabaseHelper;
 import com.edocent.runtracker.dummy.DummyContent;
+import com.edocent.runtracker.loaders.SQLiteCursorLoader;
 
 /**
  * @author Ankur
  */
-public class RunListFragment extends ListFragment {
+public class RunListFragment extends ListFragment implements LoaderManager.LoaderCallbacks{
 
     static final int REQUEST_NEW_RUN = 0;
     static final String TAG = "RunListFragment";
@@ -122,7 +126,35 @@ public class RunListFragment extends ListFragment {
         }
     }
 
+    @Override
+    public Loader onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader loader, Object data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader loader) {
+
+    }
+
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(int id);
+    }
+
+    static class RunListCursorLoader extends SQLiteCursorLoader{
+
+        public RunListCursorLoader(Context context) {
+            super(context);
+            Log.v(TAG, "RunListCursorLoader  started");
+        }
+
+        @Override
+        protected Cursor loadCursor() {
+            return null;
+        }
     }
 }
