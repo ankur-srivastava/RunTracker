@@ -52,13 +52,18 @@ public class RunListFragment extends ListFragment implements LoaderManager.Loade
 
         Log.v(TAG, "Get Cursor Adapter");
         helper = new RunDatabaseHelper(getActivity());
-        cursorAdapter = new RunAdapter(getActivity(), RunDatabaseHelper.getRuns(helper, tempCursor), 0);
-
         runListView = (ListView) view.findViewById(R.id.runListViewId);
+        /* Cursor now loads via Loader : see onLoadFinished
+        cursorAdapter = new RunAdapter(getActivity(), RunDatabaseHelper.getRuns(helper, tempCursor), 0);
         if(cursorAdapter != null){
             Log.v(TAG, "Set Cursor Adapter");
             runListView.setAdapter(cursorAdapter);
         }
+        */
+
+        //Initialize the Loader
+        Log.v(TAG, "Initialize the Loader");
+        getLoaderManager().initLoader(0, null, this);
 
         return view;
     }
@@ -128,17 +133,26 @@ public class RunListFragment extends ListFragment implements LoaderManager.Loade
 
     @Override
     public Loader onCreateLoader(int id, Bundle args) {
-        return null;
+        Log.v(TAG, "Create Loader");
+        return new RunListCursorLoader(getActivity());
     }
 
     @Override
-    public void onLoadFinished(Loader loader, Object data) {
+    public void onLoadFinished(Loader loader, Object obj) {
+        // Create an adapter to point at this cursor
+        Log.v(TAG, "On Load Finished");
+        cursorAdapter = new RunAdapter(getActivity(), (Cursor)obj, 0);
 
+        if(cursorAdapter != null){
+            Log.v(TAG, "Set Cursor Adapter");
+            runListView.setAdapter(cursorAdapter);
+        }
     }
 
     @Override
     public void onLoaderReset(Loader loader) {
-
+        Log.v(TAG, "On Loader Reset");
+        runListView.setAdapter(null);
     }
 
     public interface OnFragmentInteractionListener {
@@ -154,6 +168,7 @@ public class RunListFragment extends ListFragment implements LoaderManager.Loade
 
         @Override
         protected Cursor loadCursor() {
+            //Add code to get the Cursor
             return null;
         }
     }
